@@ -1,6 +1,39 @@
 Rails.application.routes.draw do
+
+
+  get 'admin/admin_list'
+
+  get 'admin/edit'
+
+
+  resources :admin
+
+  match ':controller(/:action(/:id))', via: [ :get, :post ]
+
+
+
+
+
+
+  resources :sessions ,only: [:new, :create, :destroy]
+
+  match '/signin', to: 'sessions#new', via: 'get'
+
+  match '/signout', to: 'sessions#destroy', via: 'delete'
+  match '/signout', to: 'sessions#destroy', via: 'get'
+
+  # get 'admin/new'
+
+  # get 'admin/show'
+
+  root 'admins#welcome'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+
+  match '/admin_signin',  to: 'sessions#new',         via: 'get'
+  match '/admin_signout', to: 'sessions#destroy',     via: 'get'
+  match '/admin_sessions', to: 'sessions#create',      via: 'post'
+  match '/admin_delete', to:'admins#admin_list', via: 'get'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

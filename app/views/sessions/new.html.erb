@@ -1,0 +1,14 @@
+<h1>Administrator Sign-In</h1>
+<p><%=flash.now[:error]%></p>
+<p><%=flash.now[:notice]%></p>
+<%= form_for(:session, url: admin_sessions_path) do |f|%>
+
+    <%=f.label :email%>
+    <%=f.text_field :email%>
+
+    <%=f.label :password%>
+    <%=f.password_field :password%>
+
+    <%=f.submit "Sign In"%>
+
+<%end%>

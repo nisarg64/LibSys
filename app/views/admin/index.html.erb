@@ -1,0 +1,21 @@
+<h1>Welcome Admin!</h1>
+<%= link_to '<button>Home</button>'.html_safe, controller: 'admin', action: 'index'  %>
+<%= link_to '<button>Sign Out</button>'.html_safe, admin_signout_path  %>
+<p>Select from the following options:</p>
+
+<p><%= link_to '<button class="save_button">New Admin</button>'.html_safe, controller: 'admin', action: 'new' %>
+<%= link_to '<button class="save_button">Show Admins</button>'.html_safe, controller: 'admin', action: 'admin_list' %>
+<%= link_to '<button class="save_button">Edit Profile</button>'.html_safe, controller: 'admin', action: 'edit' %></p>
+<p><%= link_to '<button class="save_button">Search Books</button>'.html_safe, controller: 'books', action: 'search' %>
+<%= link_to '<button class="save_button">View Book Details</button>'.html_safe, controller: 'books', action: 'show' %>
+<%= link_to '<button class="save_button">Edit Book Details</button>'.html_safe, controller: 'books', action: 'edit' %></p>
+<p><%= link_to '<button class="save_button">View Books List</button>'.html_safe, controller: 'books', action: 'index' %>
+<%= link_to '<button class="save_button">Add Book to System</button>'.html_safe, controller: 'books', action: 'new' %>
+<%= link_to '<button class="save_button">Delete Book from System</button>'.html_safe, controller: 'books', action: 'delete' %></p>
+<p><%= link_to '<button class="save_button">View Book Checkout History</button>'.html_safe, controller: 'checkout', action: 'book_show' %>
+<%= link_to '<button class="save_button">View Library Members List</button>'.html_safe, controller: 'member', action: 'index' %>
+<%= link_to '<button class="save_button">View Library Member Deltails</button>'.html_safe, controller: 'member', action: 'show' %></p>
+<p><%= link_to '<button class="save_button">View Library Member Checkout History</button>'.html_safe, controller: 'checkout', action: 'member_show' %>
+<%= link_to '<button class="save_button">Delete Library Member</button>'.html_safe, controller: 'member', action: 'delete' %></p>
+
+
