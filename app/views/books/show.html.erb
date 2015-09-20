@@ -1,0 +1,29 @@
+<h1>Book Details: </h1>
+<p>
+  <strong>ISBN:</strong>
+  <%= @book.isbn %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @book.description %>
+</p>
+
+<p>
+  <strong>Author(s):</strong>
+  <%= @book.authors %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= "Checked Out" if @book.checked_out%>
+  <%= "Available" unless @book.checked_out %>
+</p>
+
+<%= link_to 'Back', books_path %>
+<%= link_to 'Edit', edit_book_path(@book) %>
