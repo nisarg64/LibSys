@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  resources :books
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
@@ -60,6 +59,7 @@ Rails.application.routes.draw do
   get 'helper_pages/about'
   get 'helper_pages/contact'
   get 'helper_pages/home'
+  get 'books/search' => 'books#search'
 
   root             'helper_pages#home'
   get 'about'   => 'helper_pages#about'
@@ -71,4 +71,5 @@ Rails.application.routes.draw do
   post   'member_login'   => 'sessions#create_member'
   delete 'logout'  => 'sessions#destroy'
   resources :library_members
+  resources :books
 end
