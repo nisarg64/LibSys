@@ -16,5 +16,9 @@
 !/log/.keep
 /tmp
 
-#Ignore IDEA files
-/.idea
+# Ignore .idea files
+/.idea/*
+
+#Ignore Gemfiles
+/Gemfile
+/Gemfile.lock
