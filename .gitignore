@@ -15,3 +15,10 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore .idea files
+/.idea/*
+
+#Ignore Gemfiles
+/Gemfile
+/Gemfile.lock

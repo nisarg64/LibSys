@@ -13,6 +13,34 @@
 
 ActiveRecord::Schema.define(version: 20150920175450) do
 
+  create_table "admins", force: :cascade do |t|
+    t.string   "email"
+    t.string   "name"
+    t.string   "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.integer  "isbn"
+    t.string   "title"
+    t.text     "description"
+    t.text     "authors"
+    t.boolean  "checked_out"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "checkout_histories", force: :cascade do |t|
+    t.integer  "book_id"
+    t.datetime "issue_date"
+    t.datetime "return_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "checkout_histories", ["book_id"], name: "index_checkout_histories_on_book_id"
+
   create_table "library_members", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
