@@ -1,0 +1,12 @@
+<div class="center jumbotron">
+  <h1>Ruby on Rails Project</h1>
+
+  <h2>
+    This website was made for NCSU 
+    <a href="http://www.csc.ncsu.edu/faculty/efg/517/f15/index.php">CSC 517</a>
+    Ruby on Rails project.
+  </h2>
+  <% if !member_logged_in? && !admin_logged_in? %>
+  <%= link_to "Create Member Here", signup_path, class: "btn btn-lg btn-primary" %>
+  <% end %>
+</div>

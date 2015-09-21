@@ -23,4 +23,20 @@ ActiveRecord::Schema.define(version: 20150919234927) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "library_members", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "password_digest"
+  end
+
+  add_index "library_members", ["email"], name: "index_library_members_on_email", unique: true
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 end
