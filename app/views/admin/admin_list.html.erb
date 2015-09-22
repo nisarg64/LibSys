@@ -1,0 +1,24 @@
+<h1>Admin List</h1>
+<hr>
+<p id="notice"><%= notice %></p>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>E-Mail Address</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @admins.each do |admin| %>
+      <% if (admin.id != session[:admin_id])%>
+      <tr>
+        <td><%= admin.name %></td>
+        <td><%= admin.email %></td>
+        <td><%= link_to 'Delete Administrator', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+<br>

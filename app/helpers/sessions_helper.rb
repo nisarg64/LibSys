@@ -12,7 +12,7 @@ module SessionsHelper
   
   # Returns the current logged-in admin (if any).
   def current_admin
-    #@library_member ||= LibraryMember.find_by(id: session[:library_member_id])
+    @admin ||= Admin.find_by(id: session[:admin_id])
   end
   
   # Returns true if the user is logged in, false otherwise.
@@ -21,16 +21,16 @@ module SessionsHelper
   end
   
   def admin_logged_in?
-	false
+    !current_admin.nil?
   end
 
   def log_out
-    if LibraryMember.find(session[:library_member_id])
-		session.delete(:library_member_id)
-        @current_library_member = nil
-	else 
-		session.delete(:admin_member_id)
-        @current_admin = nil
-	end
+    if @current_library_member != nil
+      session.delete(:library_member_id)
+      @current_library_member = nil
+	  else
+		  session.delete(:admin_id)
+      @current_admin = nil
+	  end
   end
 end

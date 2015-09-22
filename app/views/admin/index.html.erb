@@ -1,0 +1,68 @@
+<H1>Welcome Admin</H1>
+<hr>
+<div class="container-fluid">
+  <p>Manage Admins:
+  <div class="span11">
+    <div class="row">
+        <div class="col-md-3">
+        <%= link_to '<button class="btn btn-primary">Add Admin</button>'.html_safe, new_admin_path %>
+        </div>
+        <div class="col-md-3">
+          <%= link_to '<button class="btn btn-primary">Show Admins</button>'.html_safe, controller: 'admin', action: 'admin_list' %>
+          </div>
+        <div class="col-md-3">
+          <%= link_to '<button class="btn btn-primary">Edit Profile</button>'.html_safe, controller: 'admin', action: 'edit' %>
+        </div>
+    </div>
+  </div></p>
+    <br>
+  <p>Manage Books:
+  <div class="span11">
+    <div class="row">
+        <div class="col-md-3">
+          <%= link_to '<button class="btn btn-primary">Search Books</button>'.html_safe, controller: 'books', action: 'index' %>
+        </div>
+        <div class="col-md-3">
+          <%= link_to '<button class="btn btn-primary">View Book Details</button>'.html_safe, controller: 'books', action: 'index' %>
+        </div>
+        <div class="col-md-3">
+          <%= link_to '<button class="btn btn-primary">Edit Book Details</button>'.html_safe, controller: 'books', action: 'index' %>
+        </div>
+      <div class="col-md-3">
+        <%= link_to '<button class="btn btn-primary">View Books List</button>'.html_safe, controller: 'books', action: 'index' %>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="span11">
+    <div class="row">
+
+        <div class="col-md-3">
+          <%= link_to '<button class="btn btn-primary">Add Book</button>'.html_safe, controller: 'books', action: 'new' %>
+        </div>
+        <div class="col-md-3">
+          <%= link_to '<button class="btn btn-primary">Delete Book</button>'.html_safe, controller: 'books', action: 'index' %>
+        </div>
+      <div class="col-md-3">
+        <%= link_to '<button class="btn btn-primary">View Book Checkout History</button>'.html_safe, controller: 'books', action: 'index' %>
+      </div>
+    </div>
+  </div></p>
+  <br>
+  <p>Manage Library Members:
+  <div class="span11">
+    <div class="row">
+
+        <div class="col-md-3">
+          <%= link_to '<button class="btn btn-primary">Manage Library Members</button>'.html_safe, controller: 'library_members', action: 'index' %>
+        </div>
+    </div>
+  </div>
+  <br>
+  <div class="span11">
+    <div class="row">
+
+    </div>
+  </div>
+  </p>
+</div>

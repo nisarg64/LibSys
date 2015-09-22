@@ -53,7 +53,20 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+  get 'admin/admin_list'
+
+  get 'admin/index'
+
+  get 'admin/destroy'
+
+  get 'admin/edit'
+
+  get 'admin/update'
+
+  resources :admin
+
   get 'sessions/new'
+
   get 'library_members/new'
   get 'library_members/home'
   get 'helper_pages/about'
@@ -65,11 +78,16 @@ Rails.application.routes.draw do
   get 'about'   => 'helper_pages#about'
   get 'contact' => 'helper_pages#contact'
   get 'signup'  => 'library_members#new'
+
   get    'admin_login'   => 'sessions#new_admin'
   post   'admin_login'   => 'sessions#create_admin'
+
+
+
   get    'member_login'   => 'sessions#new_member'
   post   'member_login'   => 'sessions#create_member'
   delete 'logout'  => 'sessions#destroy'
+
   resources :library_members
   resources :books
   get 'books/:id/checkout' => 'checkout_histories#checkout',as: :book_checkout
