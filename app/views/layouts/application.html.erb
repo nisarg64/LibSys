@@ -9,6 +9,8 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
+    <p><%=flash.now[:error]%></p>
+    <p><%=flash.now[:notice]%></p>
     <div class="container">
       <%= yield %>
     <%= render 'layouts/footer' %>

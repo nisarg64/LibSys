@@ -1,4 +1,6 @@
 <h1>Book Details: </h1>
+
+
 <p>
   <strong>ISBN:</strong>
   <%= @book.isbn %>
@@ -21,8 +23,16 @@
 
 <p>
   <strong>Status:</strong>
-  <%= "Checked Out" if @book.checked_out%>
-  <%= "Available" unless @book.checked_out %>
+  <% if @book.checked_out %>
+     <%= "Checked Out"%>
+     <% if admin_logged_in? || @book.checkout_histories.last && @book.checkout_histories.last.library_member_id == current_library_member.id %>
+           <%= "by "+@book.checkout_histories.last.library_member.name if admin_logged_in?%>
+          <%= button_to "Return Book", book_return_path(@book),:class => 'btn btn-primary', :method => 'get' %>
+     <% end  %>
+  <% else %>
+      <%= "Available"%>
+      <%= button_to "Check-Out", book_checkout_path(@book),:class => 'btn btn-primary', :method => 'get' %>
+  <% end %>
 </p>
 
 <%= link_to 'Back', books_path %>

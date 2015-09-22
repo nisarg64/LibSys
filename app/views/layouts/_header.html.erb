@@ -5,14 +5,19 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home",   root_path %></li>
         <% if member_logged_in? || admin_logged_in? %>
-		  <li>
-			<%= link_to "Log out", logout_path, method: "delete" %>
-		  </li>
-        <% else %>
-          <li><%= link_to "Admin Log in", admin_login_path %></li>
-		  <li><%= link_to "Member Log in", member_login_path %></li>
+		    <li><%= link_to "Edit Profile", "#" %></li>
+            <li><%= link_to "Log out", logout_path, method: "delete" %></li>
+        <%else %>
+            <li><%= link_to "Admin Log in", admin_login_path %></li>
+		    <li><%= link_to "Member Log in", member_login_path %></li>
         <% end %>
       </ul>
+      <% if member_logged_in? %>'
+          <ul class="nav navbar-nav navbar-left">
+            <li><%= link_to "Search",   books_path %></li>
+            <li><%= link_to "Self Checkout History", member_history_path(current_library_member)%></li>
+          </ul>
+      <% end %>
     </nav>
   </div>
 </header>

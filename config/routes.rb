@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   get 'helper_pages/about'
   get 'helper_pages/contact'
   get 'helper_pages/home'
-  get 'books/search' => 'books#search'
+  post 'books/search' => 'books#search'
 
   root             'helper_pages#home'
   get 'about'   => 'helper_pages#about'
@@ -72,4 +72,8 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
   resources :library_members
   resources :books
+  get 'books/:id/checkout' => 'checkout_histories#checkout',as: :book_checkout
+  get 'books/:id/return' => 'checkout_histories#return_book', as: :book_return
+  get 'books/:id/history'=> 'checkout_histories#show_book_history',as: :book_history
+  get 'library_members/:id/history' => 'checkout_histories#show_member_history',as: :member_history
 end

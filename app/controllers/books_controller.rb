@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :require_admin_login, except: [:show, :search]
+  before_action :require_admin_login, except: [:show,:index, :search, :do_search]
   before_action :require_member_login
   def index
     @books = Book.all
@@ -9,9 +9,14 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
-  def search
-
-  end
+=begin
+    TODO: Implement Search for books using index as view
+    def search
+      @search_params = params[:search]
+      @books =   Book.where("isbn = ? OR title LIKE ? OR description LIKE ? OR authors LIKE ? AND checked_out = ?",@search_params[:isbn],"_%#{@search_params[:title]}%","%_#{@search_params[:description]}%","%_#{@search_params[:author]}%",@search_params[:checked_out])
+      render 'search'
+    end
+=end
 
   def new
   @book = Book.new
