@@ -12,13 +12,11 @@ module SessionsHelper
   
   # Returns the current logged-in admin (if any).
   def current_admin
-    @admin ||= Admin.find_by(id: session[:admin_id])
+    @admin = Admin.find_by(id: session[:admin_id])
   end
   
   # Returns true if the user is logged in, false otherwise.
   def member_logged_in?
-    puts "==============================="
-    puts current_library_member
     !current_library_member.nil?
   end
   

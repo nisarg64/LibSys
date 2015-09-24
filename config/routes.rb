@@ -71,6 +71,7 @@ Rails.application.routes.draw do
   get 'library_members/edit'
   get 'library_members/show'
   get 'library_members/update'
+
   get 'library_members/new'
   get 'library_members/home'
 
