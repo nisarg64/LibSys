@@ -6,6 +6,14 @@ class LibraryMembersController < ApplicationController
   def index
     @library_members = LibraryMember.all
   end
+
+  def show
+    @library_member = LibraryMember.find(params[:id]);
+  end
+
+  def edit
+    @library_member = LibraryMember.find(session[:library_member_id]);
+  end
   
   def create
     @library_member = LibraryMember.new(library_member_params)
@@ -14,6 +22,20 @@ class LibraryMembersController < ApplicationController
       redirect_to @library_member
     else
       render 'new'
+    end
+  end
+
+  def update
+
+    @library_member = LibraryMember.find(session[:library_member_id])
+    respond_to do |format|
+      if @library_member.update(library_member_params)
+        format.html { redirect_to @library_member, notice: 'Profile was successfully updated.' }
+        format.json { render :show, status: :ok, location: @admin }
+      else
+        format.html { render :edit }
+        format.json { render json: @admin.errors, status: :unprocessable_entity }
+      end
     end
   end
 
