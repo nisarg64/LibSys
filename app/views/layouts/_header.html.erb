@@ -3,24 +3,32 @@
     <%= link_to "Library App", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <% if member_logged_in? %>
-            <li><%= link_to "Home",   library_members_home_path %></li>
+        <li><%= link_to "Home",   root_path %></li>
+         <% if member_logged_in? ||  admin_logged_in?%>
 		    <li><%= link_to "Log out", logout_path, method: "delete" %></li>
-        <% elsif admin_logged_in? %>
-                <li><%= link_to "Home",   admin_index_path %></li>
-                <li><%= link_to "Log out", logout_path, method: "delete" %></li>
+          </ul>
         <% else %>
-            <li><%= link_to "Home",   root_path %></li>
             <li><%= link_to "Admin Log in", admin_login_path %></li>
 		    <li><%= link_to "Member Log in", member_login_path %></li>
-        <% end %>
-      </ul>
-      <% if member_logged_in? %>'
-          <ul class="nav navbar-nav navbar-left">
-            <li><%= link_to "Search",   books_path %></li>
-            <li><%= link_to "Self Checkout History", member_history_path(current_library_member)%></li>
           </ul>
-      <% end %>
+        <% end %>
+        <% if admin_logged_in? %>
+            <ul class="nav navbar-nav navbar-left">
+              <li><%= link_to 'Add Admin', new_admin_path %></li>
+              <li><%= link_to 'Show Admins', controller: 'admin', action: 'admin_list' %></li>
+              <li><%= link_to 'Edit Profile', controller: 'admin', action: 'edit' %></li>
+              <li><%= link_to 'Add Book', controller: 'books', action: 'new' %></li>
+              <li><%= link_to 'Manage Books', controller: 'books', action: 'index' %></li>
+              <li><%= link_to 'Manage Library Members', controller: 'library_members', action: 'index' %></li>
+            </ul>
+        <% end %>
+        <% if member_logged_in? %>
+            <ul class="nav navbar-nav navbar-left">
+              <li><%= link_to "Search",   books_path %></li>
+              <li><%= link_to "Self Checkout History", member_history_path(current_library_member) %></li></ul>
+            </ul>
+        <% end %>
+
     </nav>
   </div>
 </header>

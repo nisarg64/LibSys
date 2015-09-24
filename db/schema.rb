@@ -11,10 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20150922063509) do
 
-ActiveRecord::Schema.define(version: 20150922033743) do
-
-  create_table "admin", force: :cascade do |t|
+  create_table "admins", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "created_at"
@@ -31,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150922033743) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
-  
+
   create_table "checkout_histories", force: :cascade do |t|
     t.integer  "book_id"
     t.datetime "issue_date"
@@ -53,12 +52,5 @@ ActiveRecord::Schema.define(version: 20150922033743) do
   end
 
   add_index "library_members", ["email"], name: "index_library_members_on_email", unique: true
-
-  create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
 end

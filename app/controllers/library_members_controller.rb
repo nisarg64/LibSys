@@ -2,6 +2,10 @@ class LibraryMembersController < ApplicationController
   def new
 	@library_member = LibraryMember.new
   end
+
+  def index
+    @library_members = LibraryMember.all
+  end
   
   def create
     @library_member = LibraryMember.new(library_member_params)
@@ -10,6 +14,15 @@ class LibraryMembersController < ApplicationController
       redirect_to @library_member
     else
       render 'new'
+    end
+  end
+
+  def destroy
+    @library_member = LibraryMember.find(params[:id])
+    @library_member.destroy
+    respond_to do |format|
+      format.html { redirect_to library_members_path, notice: 'Member was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
   

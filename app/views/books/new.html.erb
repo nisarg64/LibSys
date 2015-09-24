@@ -14,27 +14,27 @@
         </div>
     <% end %>
 
-    <p>
-      <%= f.label :isbn, "ISBN" %><br>
-      <%= f.text_field :isbn %>
-    </p>
-
-    <p>
-      <%= f.label :title %><br>
-      <%= f.text_field :title %>
-    </p>
-
-    <p>
-      <%= f.label :description %><br>
-      <%= f.text_area :description %>
-    </p>
-
-    <p>
-      <%= f.label :authors %><br>
-      <%= f.text_field :authors %>
-    </p>
-
-    <p>
-      <%= f.submit %>
-    </p>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="field">
+          <%= f.label :isbn %><br>
+          <%= f.text_field :isbn  , class: 'form-control' %>
+        </div>
+        <div class="field">
+          <%= f.label :title %><br>
+          <%= f.text_field :title , class: 'form-control' %>
+        </div>
+        <div class="field">
+          <%= f.label :description %><br>
+          <%= f.text_area :description , class: 'form-control' %>
+        </div>
+        <div class="field">
+          <%= f.label :authors%><br>
+          <%= f.text_field :authors, class: 'form-control'  %><br>
+        </div>
+        <div class="actions">
+          <%= f.submit "Add Book", class: "btn btn-primary"%>
+        </div>
+      </div>
+    </div>
 <% end %>

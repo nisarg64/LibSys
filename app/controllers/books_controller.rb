@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
-  before_action :require_admin_login, except: [:show,:index, :search, :do_search]
-  before_action :require_member_login
+  before_action :require_login
+  before_action :require_admin_login, except: [:show, :index, :search, :do_search]
+
   def index
     @books = Book.all
   end
@@ -56,8 +57,8 @@ class BooksController < ApplicationController
     params.require(:book).permit(:isbn,:title,:description, :authors)
   end
 
-  def require_member_login
-    unless member_logged_in?
+  def require_login
+    unless member_logged_in? || admin_logged_in?
       flash[:error] = "You must be logged in to access this section"
       redirect_to member_login_path
     end

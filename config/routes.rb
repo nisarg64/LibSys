@@ -67,8 +67,10 @@ Rails.application.routes.draw do
 
   get 'sessions/new'
 
+  get 'library_members/index'
   get 'library_members/new'
   get 'library_members/home'
+
   get 'helper_pages/about'
   get 'helper_pages/contact'
   get 'helper_pages/home'

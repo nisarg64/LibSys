@@ -19,35 +19,14 @@
   <p>Manage Books:
   <div class="span11">
     <div class="row">
-        <div class="col-md-3">
-          <%= link_to '<button class="btn btn-primary">Search Books</button>'.html_safe, controller: 'books', action: 'index' %>
-        </div>
-        <div class="col-md-3">
-          <%= link_to '<button class="btn btn-primary">View Book Details</button>'.html_safe, controller: 'books', action: 'index' %>
-        </div>
-        <div class="col-md-3">
-          <%= link_to '<button class="btn btn-primary">Edit Book Details</button>'.html_safe, controller: 'books', action: 'index' %>
-        </div>
       <div class="col-md-3">
-        <%= link_to '<button class="btn btn-primary">View Books List</button>'.html_safe, controller: 'books', action: 'index' %>
+        <%= link_to '<button class="btn btn-primary">Add Book</button>'.html_safe, controller: 'books', action: 'new' %>
+      </div>
+      <div class="col-md-3">
+        <%= link_to '<button class="btn btn-primary">Manage Books</button>'.html_safe, controller: 'books', action: 'index' %>
       </div>
     </div>
   </div>
-  <br>
-  <div class="span11">
-    <div class="row">
-
-        <div class="col-md-3">
-          <%= link_to '<button class="btn btn-primary">Add Book</button>'.html_safe, controller: 'books', action: 'new' %>
-        </div>
-        <div class="col-md-3">
-          <%= link_to '<button class="btn btn-primary">Delete Book</button>'.html_safe, controller: 'books', action: 'index' %>
-        </div>
-      <div class="col-md-3">
-        <%= link_to '<button class="btn btn-primary">View Book Checkout History</button>'.html_safe, controller: 'books', action: 'index' %>
-      </div>
-    </div>
-  </div></p>
   <br>
   <p>Manage Library Members:
   <div class="span11">

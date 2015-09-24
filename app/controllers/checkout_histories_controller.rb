@@ -40,7 +40,8 @@ class CheckoutHistoriesController < ApplicationController
   def check_legal_user_return_book
     require_login
     book = Book.find(params[:id])
-    unless book.checkout_histories.last.library_member_id == current_library_member.id || admin_logged_in?
+
+    unless member_logged_in? && (book.checkout_histories.last.library_member_id == current_library_member.id) || admin_logged_in?
       flash[:error] = "You do not have permission to return the book"
       redirect_to book
     end

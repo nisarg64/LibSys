@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     library_member = LibraryMember.find_by(email: params[:session][:email].downcase)
     if library_member && library_member.authenticate(params[:session][:password])
       log_in_member library_member
-      redirect_to root_url
+      redirect_to root_path
     else
 	  flash.now[:danger] = 'Invalid email/password combination' 
       render 'new_member'
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
     if admin && admin.authenticate(params[:session][:password])
       session[:admin_id]=admin.id
       session[:role]='Administrator'
-      redirect_to :controller => 'admin', :action => 'index'
+      redirect_to root_path
     else
       flash.now[:error] = 'Invalid Login Credentials'
       render 'new_admin'
