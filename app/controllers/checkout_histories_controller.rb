@@ -5,11 +5,23 @@ class CheckoutHistoriesController < ApplicationController
   before_action :validate_user_member_history, only: [:show_member_history]
 
 
-  def checkout
+  def checkout(member = current_library_member)
     @book = Book.find(params[:id])
-    @book.checkout_histories.create(:library_member => current_library_member,:issue_date => DateTime.now)
+    @book.checkout_histories.create(:library_member => member,:issue_date => DateTime.now)
     @book.update(checked_out: true)
     redirect_to @book
+  end
+
+  def checkout_admin
+    @book = Book.find(params[:id])
+    @member = LibraryMember.find_by(params[:library_member])
+    if @member.nil?
+      flash[:error] = 'No member with such email exists'
+      redirect_to @book
+    else
+      flash[:notice] = "Book Successfully checked out for #{@member.name}"
+      checkout(@member)
+    end
   end
 
   def return_book

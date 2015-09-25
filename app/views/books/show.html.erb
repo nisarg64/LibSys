@@ -1,6 +1,5 @@
 <h1>Book Details: </h1>
 
-
 <p>
   <strong>ISBN:</strong>
   <%= @book.isbn %>
@@ -30,10 +29,23 @@
           <%= button_to "Return Book", book_return_path(@book),:class => 'btn btn-primary', :method => 'get' %>
      <% end  %>
   <% else %>
-      <%= "Available"%>
+      <%= "Available"%> </p>
+      <% if admin_logged_in? %>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <%= form_for(:library_member, url: book_admin_checkout_path(@book)) do |f| %>
+                <%= f.label :email %>
+                <%= f.email_field :email, class: 'form-control',required:true %>
+                <%= f.submit "Check-out for a user", class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
       <%= button_to "Check-Out", book_checkout_path(@book),:class => 'btn btn-primary', :method => 'get' %>
+      <% end %>
   <% end %>
-</p>
-
-<%= link_to 'Back', books_path %>
-<%= link_to 'Edit', edit_book_path(@book) %>
+<br><br>
+  <div class="btn-group" role="group" aria-label="...">
+<%= button_to 'Back', books_path,:class => 'btn btn-default',method: :get %>
+<%= button_to 'Edit', edit_book_path(@book),:class => 'btn btn-default',method: :get %>
+  </div>
