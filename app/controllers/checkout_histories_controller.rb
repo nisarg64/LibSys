@@ -28,6 +28,7 @@ class CheckoutHistoriesController < ApplicationController
     @book = Book.find(params[:id])
     @book.checkout_histories.last.update(return_date: DateTime.now)
     @book.update(checked_out: false)
+    flash[:notice] = "Book successfully returned to the library"
     redirect_to @book
   end
 
