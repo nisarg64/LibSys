@@ -12,7 +12,11 @@
         <td><%= entry.library_member.id %></td>
         <td><%= entry.library_member.name %></td>
         <td><%= entry.issue_date %></td>
-        <td><%= entry.return_date %></td>
+        <% if entry.return_date.nil? %>
+            <td><%= button_to "Return Book", book_return_path(entry.book),:class => 'btn btn-primary', :method => 'get' %></td>
+        <% else %>
+            <td><%= entry.return_date %></td>
+        <% end %>
       </tr>
   <% end %>
 </table>
