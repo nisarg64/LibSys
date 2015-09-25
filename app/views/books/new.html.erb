@@ -1,40 +1,6 @@
 <h1> Add a Book</h1>
-<%= form_for @book, url: books_path do |f| %>
-    <% if @book.errors.any? %>
-        <div id="error_explanation">
-          <h2>
-            <%= pluralize(@book.errors.count, "error") %> prohibited
-            this article from being saved:
-          </h2>
-          <ul>
-            <% @book.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="field">
-          <%= f.label :isbn %><br>
-          <%= f.text_field :isbn  , class: 'form-control' %>
-        </div>
-        <div class="field">
-          <%= f.label :title %><br>
-          <%= f.text_field :title , class: 'form-control' %>
-        </div>
-        <div class="field">
-          <%= f.label :description %><br>
-          <%= f.text_area :description , class: 'form-control' %>
-        </div>
-        <div class="field">
-          <%= f.label :authors%><br>
-          <%= f.text_field :authors, class: 'form-control'  %><br>
-        </div>
-        <div class="actions">
-          <%= f.submit "Add Book", class: "btn btn-primary"%>
-        </div>
-      </div>
-    </div>
-<% end %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+   <%= render 'form'%>
+  </div>
+</div>
