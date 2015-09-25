@@ -1,6 +1,5 @@
 class AdminController < ApplicationController
-  before_action :session_valid, :except=>[:welcome]
-  before_action only: [:show, :edit, :update, :destroy]
+  before_action :session_valid
 
 
   # GET /admin
@@ -82,9 +81,9 @@ class AdminController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def session_valid
-      if (session[:admin_id]==nil && session[:role]!='Administrator')
-        flash[:notice] = "Please Log In To View This Page";
-        redirect_to signin_path;
+      unless admin_logged_in?
+        flash[:error] = "Please Log In To View This Page";
+        redirect_to admin_login_path;
       end
     end
 

@@ -1,4 +1,7 @@
 class LibraryMembersController < ApplicationController
+  before_action :require_admin_login, only: [:index, :destroy]
+  before_action :require_member_login, except: [:index, :destroy]
+
   def new
 	@library_member = LibraryMember.new
   end
@@ -51,6 +54,20 @@ class LibraryMembersController < ApplicationController
   def home
   end
   private
+
+    def require_admin_login
+      unless admin_logged_in?
+        flash[:error] = "Please Log In To View This Page";
+        redirect_to admin_login_path;
+      end
+    end
+
+    def require_member_login
+      unless member_logged_in?
+        flash[:error] = "Please Log In To View This Page";
+        redirect_to member_login_path;
+      end
+    end
 
     def library_member_params
       params.require(:library_member).permit(:name, :email, :password,

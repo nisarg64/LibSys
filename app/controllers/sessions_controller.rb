@@ -3,6 +3,9 @@ class SessionsController < ApplicationController
   end
 
   def create_member
+    if admin_logged_in? || member_logged_in?
+      log_out
+    end
     library_member = LibraryMember.find_by(email: params[:session][:email].downcase)
     if library_member && library_member.authenticate(params[:session][:password])
       log_in_member library_member
@@ -17,6 +20,9 @@ class SessionsController < ApplicationController
   end
 
   def create_admin
+    if admin_logged_in? || member_logged_in?
+      log_out
+    end
     admin = Admin.find_by(email: params[:session][:email].downcase)
     logger.info "admin"
     if admin && admin.authenticate(params[:session][:password])
