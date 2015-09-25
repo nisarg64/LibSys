@@ -14,7 +14,8 @@ class BooksController < ApplicationController
   def search
     key= params[:search][:keyword]
     unfiltered_books = Book.lookup(key)
-    unless params[:search][:keyword] == "all"
+    @books = unfiltered_books
+    unless params[:search][:checked_out] == "all"
       @books = unfiltered_books.select {|b| b.checked_out.to_s == params[:search][:checked_out]}
     end
     @search_params = {}
