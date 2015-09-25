@@ -1,6 +1,6 @@
 class LibraryMembersController < ApplicationController
   before_action :require_admin_login, only: [:index, :destroy]
-  before_action :require_member_login, except: [:index, :destroy]
+  before_action :require_member_login, except: [:index, :destroy, :new, :create]
 
   def new
 	@library_member = LibraryMember.new
@@ -44,10 +44,15 @@ class LibraryMembersController < ApplicationController
 
   def destroy
     @library_member = LibraryMember.find(params[:id])
-    @library_member.destroy
-    respond_to do |format|
-      format.html { redirect_to library_members_path, notice: 'Member was successfully destroyed.' }
-      format.json { head :no_content }
+    if @library_member.checkout_histories.select{|history| history.return_date.nil?}.size == 0
+      @library_member.destroy
+      respond_to do |format|
+        format.html { redirect_to library_members_path, notice: 'Member was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      flash[:error] = "Cannot delete library member. He/she has book(s) checked out."
+      redirect_to library_members_path
     end
   end
   

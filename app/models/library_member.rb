@@ -1,6 +1,6 @@
 class LibraryMember < ActiveRecord::Base
 	before_save { email.downcase! }
-  has_many :checkout_histories
+  has_many :checkout_histories, dependent: :destroy
   has_many :books, through: :checkout_histories
 	validates :name,  presence: true, length: { maximum: 50 }
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i

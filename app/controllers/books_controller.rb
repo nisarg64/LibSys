@@ -48,7 +48,11 @@ class BooksController < ApplicationController
 
   def destroy
     @book = Book.find(params[:id])
-    @book.destroy
+    if @book.checked_out?
+      flash[:error] = "Cannot delete book. Book is currently checked out by a library member."
+    else
+      @book.destroy
+    end
     redirect_to books_path
   end
 
