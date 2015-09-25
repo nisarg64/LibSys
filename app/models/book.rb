@@ -6,3 +6,7 @@ class Book < ActiveRecord::Base
   validates :description, presence: true
   validates :authors, presence: true
 end
+
+def Book.lookup(keyword)
+  Book.where("isbn = ? OR title LIKE ? OR description LIKE ? OR authors LIKE ?",keyword,"%#{keyword}%","%#{keyword}%","%#{keyword}%")
+end

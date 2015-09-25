@@ -1,34 +1,77 @@
 <h1>Listing books</h1>
+<script type = "text/javascript">
+    $(document).on('ready page:load', function () {
+    document.getElementById("keyword").value = "<%= @search_params[:keyword] %>";
+  <% if @search_params[:checked_out] == "true"%>
+  document.getElementById("checked_out_yes").checked = true;
+  <% elsif @search_params[:checked_out] == "false" %>
+  document.getElementById("checked_out_no").checked = true;
+  <% else%>
+  document.getElementById("checked_out_all").checked = true;
+  <%end %>
+    });
+</script>
+<div class ="row">
+  <div class ="col-md-6 col-md-offset-3">
+<%= form_for :search, url: books_search_path do |f| %>
+    <div class="form-group">
+      <div class="col-md-8">
+        <%= f.text_field :keyword,id:"keyword", placeholder: "ISBN or title or author or description", class: "form-control" %>
+      </div>
+    </div>
 
-<table class ="table table-bordered">
-  <tr>
-    <th>ISBN</th>
-    <th>Title</th>
-    <th>Author(s)</th>
-    <th>Status</th>
-    <% if admin_logged_in? %>
-        <th>Check-out History</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    <% end %>
-  </tr>
+    <div class="form-group">
 
-  <% @books.each do |book| %>
+        <table>
+        <tr>
+        <td> <label><%= f.radio_button :checked_out,"true",id:"checked_out_yes", :checked => true %> Checked Out</label> </td>
+        <td>      </td>
+        <td><label><%= f.radio_button :checked_out,"false",id:"checked_out_no",:checked => false %> Available </label></td>
+        <td><label><%= f.radio_button :checked_out,"all",id:"checked_out_all",:checked => false %> All </label></td>
+        </tr>
+        </table>
+    </div>
+
+
+    <%= f.submit "Search", class: "btn btn-primary" %>
+  </div>
+</div>
+<% end %>
+<br><br>
+<% unless @books.size == 0 %>
+    <table class ="table table-bordered">
       <tr>
-        <td><%= book.isbn %></td>
-        <td><%= link_to book.title, book_path(book) %></td>
-        <td><%= book.authors %></td>
-        <td>
-          <%= "Checked-out" if book.checked_out %>
-          <%= "Available" unless book.checked_out %>
-        </td>
+        <th>ISBN</th>
+        <th>Title</th>
+        <th>Author(s)</th>
+        <th>Status</th>
         <% if admin_logged_in? %>
-            <td><%= link_to 'view history', book_history_path(book)%></td>
-            <td><%= link_to 'Edit', edit_book_path(book) %></td>
-            <td><%= link_to 'delete', book_path(book),
-                            method: :delete,
-                            data: { confirm: 'Are you sure?' }%></td>
+            <th>Check-out History</th>
+            <th>Edit</th>
+            <th>Delete</th>
         <% end %>
       </tr>
-  <% end %>
-</table>
+
+      <% @books.each do |book| %>
+          <tr>
+            <td><%= book.isbn %></td>
+            <td><%= link_to book.title, book_path(book) %></td>
+            <td><%= book.authors %></td>
+            <td>
+              <%= "Checked-out" if book.checked_out %>
+              <%= "Available" unless book.checked_out %>
+            </td>
+            <% if admin_logged_in? %>
+                <td><%= link_to 'view history', book_history_path(book)%></td>
+                <td><%= link_to 'Edit', edit_book_path(book) %></td>
+                <td><%= link_to 'delete', book_path(book),
+                                method: :delete,
+                                data: { confirm: 'Are you sure?' }%></td>
+            <% end %>
+          </tr>
+      <% end %>
+    </table>
+<%end %>
+<% if @books.size==0 %>
+<div class ="alert alert-info">Sorry !! No results were found matching your search</div>
+<% end %>

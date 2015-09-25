@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   get 'helper_pages/contact'
   get 'helper_pages/home'
   post 'books/search' => 'books#search'
+  get  'books/search' => 'books#index'
 
   root             'helper_pages#home'
   get 'about'   => 'helper_pages#about'
