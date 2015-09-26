@@ -16,7 +16,7 @@ class SuggestionsController < ApplicationController
 
    def add_book
      @suggestion = Suggestion.find(params[:id])
-     @book = Book.new(isbn: @suggestion[:isbn], title: @suggestion[:title], description: @suggestion[:description], authors: @suggestion[:authors])
+     @book = Book.new(isbn: @suggestion[:isbn], title: @suggestion[:title], description: @suggestion[:description], authors: @suggestion[:authors], checked_out: false)
      if @book.save
        flash[:notice] = "You have added a book."
        @suggestion.destroy
