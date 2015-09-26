@@ -53,6 +53,10 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+  get 'suggestions/new'
+
+  get 'suggestions/index'
+
   get 'admin/admin_list'
 
   get 'admin/index'
@@ -89,14 +93,21 @@ Rails.application.routes.draw do
   get    'admin_login'   => 'sessions#new_admin'
   post   'admin_login'   => 'sessions#create_admin'
 
+  get   'suggestion_new'   => 'suggestions#new'
+  post  'suggestion_new'   => 'suggestions#create'
+  get   'suggestion'   => 'suggestions#index'
+  post  'suggestion'   => 'suggestions#index'
 
 
   get    'member_login'   => 'sessions#new_member'
   post   'member_login'   => 'sessions#create_member'
   delete 'logout'  => 'sessions#destroy'
+  get 'suggestion/:id/destroy'  => 'suggestions#destroy', as: :destroy_suggestion
+  get 'suggestion/:id/add'  => 'suggestions#add_book', as: :add_suggestion
 
   resources :library_members
   resources :books
+  resources :suggestions
   get 'books/:id/checkout' => 'checkout_histories#checkout',as: :book_checkout
   post 'books/:id/checkout' => 'checkout_histories#checkout_admin',as: :book_admin_checkout
   get 'books/:id/return' => 'checkout_histories#return_book', as: :book_return

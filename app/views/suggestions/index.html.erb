@@ -1,0 +1,30 @@
+
+<% if admin_logged_in? %>
+        <table class ="table table-bordered">
+          <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author(s)</th>
+            <th>Add to Books</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+          <% unless @suggestions.size == 0 %>
+
+          <% @suggestions.each do |suggestion| %>
+              <tr>
+                <td><%= suggestion.isbn %></td>
+                <td><%= suggestion.title %></td>
+                <td><%= suggestion.authors %></td>
+                <td><%= link_to 'Add', add_suggestion_path(suggestion) %></td>
+                <td><%= link_to 'Edit', edit_suggestion_path(suggestion) %></td>
+                <td><%= link_to "Delete", destroy_suggestion_path(suggestion), method: "delete" %> </td>
+              </tr>
+          <% end %>
+
+          <%end %>
+        </table>
+<%else%>
+    <div class ="alert alert-info">Sorry you must be logged in as an admin to view this page.</div>
+<% end %>
+

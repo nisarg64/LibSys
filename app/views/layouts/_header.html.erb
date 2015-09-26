@@ -19,13 +19,15 @@
               <li><%= link_to 'Edit Profile', controller: 'admin', action: 'edit' %></li>
               <li><%= link_to 'Add Book', controller: 'books', action: 'new' %></li>
               <li><%= link_to 'Manage Books', controller: 'books', action: 'index' %></li>
-              <li><%= link_to 'Manage Library Members', controller: 'library_members', action: 'index' %></li>
+              <li><%= link_to 'Suggested Books', suggestion_path %></li>
+              <li><%= link_to 'Library Members', controller: 'library_members', action: 'index' %></li>
             </ul>
         <% end %>
         <% if member_logged_in? %>
             <ul class="nav navbar-nav navbar-left">
               <li><%= link_to 'Edit Profile', controller: 'library_members', action: 'edit' %></li>
               <li><%= link_to "Search",   books_path %></li>
+              <li><%= link_to "Suggest Book",   suggestion_new_path %></li>
               <li><%= link_to "Self Checkout History", member_history_path(current_library_member) %></li></ul>
             </ul>
         <% end %>
