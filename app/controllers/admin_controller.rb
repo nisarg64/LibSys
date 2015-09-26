@@ -56,12 +56,22 @@ class AdminController < ApplicationController
   def update
       @admin = Admin.find(session[:admin_id])
       respond_to do |format|
-        if @admin.update_columns(admin_params.delete_if { |key, value| value.blank? })
-          format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
-          format.json { render :show, status: :ok, location: @admin }
+        if admin_params[:password].blank? && admin_params[:password_confirmation].blank?
+          if @admin.update_columns(admin_params.delete_if { |key, value| value.blank? })
+            format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
+            format.json { render :show, status: :ok, location: @admin }
+          else
+            format.html { render :edit }
+            format.json { render json: @admin.errors, status: :unprocessable_entity }
+          end
         else
-          format.html { render :edit }
-          format.json { render json: @admin.errors, status: :unprocessable_entity }
+          if @admin.update(admin_params)
+            format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
+            format.json { render :show, status: :ok, location: @admin }
+          else
+            format.html { render :edit }
+            format.json { render json: @admin.errors, status: :unprocessable_entity }
+          end
         end
       end
   end

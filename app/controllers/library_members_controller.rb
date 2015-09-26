@@ -32,12 +32,22 @@ class LibraryMembersController < ApplicationController
 
     @library_member = LibraryMember.find(session[:library_member_id])
     respond_to do |format|
-      if @library_member.update_columns(library_member_params.delete_if { |key, value| value.blank? })
-        format.html { redirect_to @library_member, notice: 'Profile was successfully updated.' }
-        format.json { render :show, status: :ok, location: @admin }
+      if library_member_params[:password].blank? && library_member_params[:password_confirmation].blank?
+        if @library_member.update_columns(library_member_params.delete_if { |key, value| value.blank? })
+          format.html { redirect_to @library_member, notice: 'Library Member was successfully updated.' }
+          format.json { render :show, status: :ok, location: @library_member }
+        else
+          format.html { render :edit }
+          format.json { render json: @library_member.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :edit }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
+        if @library_member.update(library_member_params)
+          format.html { redirect_to @library_member, notice: 'Library Member was successfully updated.' }
+          format.json { render :show, status: :ok, location: @library_member }
+        else
+          format.html { render :edit }
+          format.json { render json: @library_member.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
