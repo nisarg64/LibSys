@@ -4,7 +4,7 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.all
-    @search_params = {:keyword=>"",:checked_out=>"false"}
+    @search_params = {:keyword=>'',:checked_out=>'all'}
   end
 
   def show
