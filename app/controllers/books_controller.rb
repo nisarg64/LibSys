@@ -45,6 +45,7 @@ class BooksController < ApplicationController
   def update
     @book = Book.find(params[:id])
     if @book.update(book_params)
+      flash[:success]="Book details were successfully updated"
       redirect_to @book
     else
       render 'edit'
