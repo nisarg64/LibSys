@@ -47,13 +47,16 @@ class AdminController < ApplicationController
     end
   end
 
+  def delete_blank
+    delete_if{|k, v| v.empty? or v.instance_of?(Hash) && v.delete_blank.empty?}
+  end
+
   # PATCH/PUT /admin/1
   # PATCH/PUT /admin/1.json
   def update
-
       @admin = Admin.find(session[:admin_id])
       respond_to do |format|
-        if @admin.update(admin_params)
+        if @admin.update_columns(admin_params.delete_if { |key, value| value.blank? })
           format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
           format.json { render :show, status: :ok, location: @admin }
         else
@@ -62,6 +65,7 @@ class AdminController < ApplicationController
         end
       end
   end
+
 
   # DELETE /admin/1
   # DELETE /admin/1.json
