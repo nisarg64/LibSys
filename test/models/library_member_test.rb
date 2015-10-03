@@ -56,7 +56,7 @@ class LibraryMembersTest < ActiveSupport::TestCase
   end
 
   test "password should be present (nonblank)" do
-    @library_member.password = @library_member.password_confirmation = " " * 6
+    @library_member.password = @library_member.password_confirmation = " " * 5
     assert_not @library_member.valid?
   end
 
@@ -68,7 +68,7 @@ class LibraryMembersTest < ActiveSupport::TestCase
   end
 
   test "password should have a minimum length" do
-    @library_member.password = @library_member.password_confirmation = "a" * 5
+    @library_member.password = @library_member.password_confirmation = "a" * 3
     assert_not @library_member.valid?
   end
 
