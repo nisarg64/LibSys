@@ -4,6 +4,28 @@ class CheckoutHistoriesController < ApplicationController
   before_action :require_admin, only: [:show_book_history]
   before_action :validate_user_member_history, only: [:show_member_history]
 
+  require 'net/smtp'
+
+  def send_email(to,book_title, opts={})
+    opts[:server]      ||= 'localhost'
+    opts[:from]        ||= 'ncsuLibrary@RubyExample.com'
+    opts[:from_alias]  ||= 'NCSU Ruby Library'
+    opts[:subject]     ||= "Your book has been returned"
+    opts[:body]        ||= "The book you were waiting for, " + book_title + " , is available."
+
+    msg = <<END_OF_MESSAGE
+    From: #{opts[:from_alias]} <#{opts[:from]}>
+    To: <#{to}>
+    Subject: #{opts[:subject]}
+
+    #{opts[:body]}
+END_OF_MESSAGE
+
+    File.write('/log/email.txt', to)
+    Net::SMTP.start(opts[:server]) do |smtp|
+      smtp.send_message msg, opts[:from], to
+    end
+  end
 
   def checkout(member = current_library_member)
     @book = Book.find(params[:id])
@@ -28,6 +50,16 @@ class CheckoutHistoriesController < ApplicationController
     @book = Book.find(params[:id])
     @book.checkout_histories.last.update(return_date: DateTime.now)
     @book.update(checked_out: false)
+    if Notification.exists?(:bookid => params[:id])
+      @notification = Notification.where(:bookid => params[:id])
+      @notification.each do |notification|
+        if LibraryMember.exists?(:id => notification.userid)
+          @member = LibraryMember.find(notification.userid)
+          send_email(@member[:email], @book[:title])
+       end
+        notification.destroy
+      end
+    end
     flash[:notice] = "Book successfully returned to the library"
     redirect_to @book
   end

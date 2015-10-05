@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :require_login
-  before_action :require_admin_login, except: [:show, :index, :search]
+  before_action :require_admin_login, except: [:show, :index, :search, :add_notification]
 
   def index
     @books = Book.all
@@ -57,9 +57,26 @@ class BooksController < ApplicationController
     if @book.checked_out?
       flash[:error] = "Cannot delete book. Book is currently checked out by a library member."
     else
+      Notification.delete_all(["bookid = ?", params[:id]])
       @book.destroy
     end
     redirect_to books_path
+  end
+
+
+  def add_notification
+    if Notification.find_by(:userid => current_library_member.id,:bookid => params[:id]) == nil
+      @notification = Notification.new(:userid => current_library_member.id,:bookid => params[:id])
+      if @notification.save
+        flash[:notice] = "You will recieve a notification when this book is available."
+        redirect_to (:back)
+      else
+        flash[:error] = "Cannot save notification."
+      end
+    else
+      flash[:notice] = "You have already signed up for a notification for this book."
+      redirect_to (:back)
+    end
   end
 
   private

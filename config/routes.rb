@@ -111,6 +111,7 @@ Rails.application.routes.draw do
   get 'books/:id/checkout' => 'checkout_histories#checkout',as: :book_checkout
   post 'books/:id/checkout' => 'checkout_histories#checkout_admin',as: :book_admin_checkout
   get 'books/:id/return' => 'checkout_histories#return_book', as: :book_return
+  get 'books/:id/notification' => 'books#add_notification', as: :notification
   get 'books/:id/history'=> 'checkout_histories#show_book_history',as: :book_history
   get 'library_members/:id/history' => 'checkout_histories#show_member_history',as: :member_history
 end

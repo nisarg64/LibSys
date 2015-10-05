@@ -29,7 +29,6 @@ class LibraryMembersController < ApplicationController
   end
 
   def update
-
     @library_member = LibraryMember.find(session[:library_member_id])
     respond_to do |format|
       if library_member_params[:password].blank? && library_member_params[:password_confirmation].blank?
@@ -55,6 +54,7 @@ class LibraryMembersController < ApplicationController
   def destroy
     @library_member = LibraryMember.find(params[:id])
     if @library_member.checkout_histories.select{|history| history.return_date.nil?}.size == 0
+      Notification.delete_all(["userid = ?", params[:id]])
       @library_member.destroy
       respond_to do |format|
         format.html { redirect_to library_members_path, notice: 'Member was successfully destroyed.' }
