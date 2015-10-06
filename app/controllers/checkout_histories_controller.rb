@@ -4,29 +4,6 @@ class CheckoutHistoriesController < ApplicationController
   before_action :require_admin, only: [:show_book_history]
   before_action :validate_user_member_history, only: [:show_member_history]
 
-  require 'net/smtp'
-
-  def send_email(to,book_title, opts={})
-    opts[:server]      ||= 'localhost'
-    opts[:from]        ||= 'ncsuLibrary@RubyExample.com'
-    opts[:from_alias]  ||= 'NCSU Ruby Library'
-    opts[:subject]     ||= "Your book has been returned"
-    opts[:body]        ||= "The book you were waiting for, " + book_title + " , is available."
-
-    msg = <<END_OF_MESSAGE
-    From: #{opts[:from_alias]} <#{opts[:from]}>
-    To: <#{to}>
-    Subject: #{opts[:subject]}
-
-    #{opts[:body]}
-END_OF_MESSAGE
-
-    File.write('/log/email.txt', to)
-    Net::SMTP.start(opts[:server]) do |smtp|
-      smtp.send_message msg, opts[:from], to
-    end
-  end
-
   def checkout(member = current_library_member)
     @book = Book.find(params[:id])
     @book.checkout_histories.create(:library_member => member,:issue_date => DateTime.now)
@@ -55,7 +32,8 @@ END_OF_MESSAGE
       @notification.each do |notification|
         if LibraryMember.exists?(:id => notification.userid)
           @member = LibraryMember.find(notification.userid)
-          send_email(@member[:email], @book[:title])
+          @book = Book.find(params[:id])
+          NotificationMailer.send_mail(@member[:email], @book[:title]).deliver
        end
         notification.destroy
       end
