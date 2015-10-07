@@ -1,7 +1,7 @@
 # LibSys : A Ruby on Rails Application
 
 ## Application Link:
-ec2-52-23-207-169.compute-1.amazonaws.com
+http://ec2-52-23-207-169.compute-1.amazonaws.com
 
 ## Admin Credentials:
 Admin Email : admin@ncsu.edu
